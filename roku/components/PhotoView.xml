@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Reusable full-screen photo cycler. Used both by the screensaver
+     (ScreenSaverScene) and by the live Preview in SettingsScene.
+     Set feedUrl + intervalSeconds, then toggle running. -->
+<component name="PhotoView" extends="Group">
+  <interface>
+    <field id="feedUrl" type="string" />
+    <field id="idUrl" type="string" />
+    <field id="intervalSeconds" type="integer" value="10" />
+    <field id="running" type="boolean" value="false" alwaysNotify="true" />
+  </interface>
+  <script type="text/brightscript" uri="pkg:/components/PhotoView.brs" />
+  <children>
+    <!-- Opaque backdrop so nothing behind shows through while an image loads or
+         during letterboxing (e.g. the settings menu during Preview). -->
+    <Rectangle id="backdrop" width="1920" height="1080" color="0x000000FF" />
+    <Poster id="photo" width="1920" height="1080" translation="[0,0]" loadDisplayMode="scaleToFit" />
+
+    <!-- Shown when the backend can't be reached. The message block drifts around
+         the screen (see burnin timer) so it can't burn in over a long outage. -->
+    <Rectangle id="errorBg" width="1920" height="1080" color="0x080808FF" visible="false">
+      <Label
+        id="errorMsg"
+        width="1400"
+        height="300"
+        translation="[260,390]"
+        horizAlign="center"
+        vertAlign="center"
+        wrap="true"
+        color="0xBBBBBBFF"
+        font="font:LargeBoldSystemFont" />
+    </Rectangle>
+
+    <Timer id="refresh" repeat="true" />
+    <!-- Short one-shot retry used when the image hasn't changed yet. -->
+    <Timer id="retry" repeat="false" duration="1" />
+    <!-- Drifts the error message while it is shown, to avoid burn-in. -->
+    <Timer id="burnin" repeat="true" duration="30" />
+  </children>
+</component>

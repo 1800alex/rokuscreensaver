@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Interactive scene used for a MANUAL channel launch (and the OS settings
+     entry). It shows the live feed as a preview with a "press * for Settings"
+     hint, and a settings overlay. The real screensaver uses the minimal
+     ScreenSaverScene instead (this scene does not composite in the restricted
+     screensaver context). -->
+<component name="PreviewScene" extends="Scene">
+  <script type="text/brightscript" uri="pkg:/components/PreviewScene.brs" />
+  <!-- Shared config/registry helpers must be included explicitly. -->
+  <script type="text/brightscript" uri="pkg:/source/config.brs" />
+  <interface>
+    <field id="interactive" type="boolean" value="false" />
+    <field id="openSettings" type="boolean" value="false" />
+  </interface>
+  <children>
+    <!-- Base layer: the live photo feed (preview). -->
+    <PhotoView id="view" />
+
+    <!-- Hint chip, shown only on a manual launch. -->
+    <Group id="hintGroup" visible="false" translation="[60,952]">
+      <Rectangle width="440" height="68" color="0x000000B0" />
+      <Label text="Press  *  for Settings" translation="[28,18]" font="font:MediumSystemFont" color="0xFFFFFFFF" />
+    </Group>
+
+    <!-- Settings overlay, hidden until * is pressed. -->
+    <Group id="settings" visible="false">
+      <Rectangle width="1920" height="1080" color="0x0A0E12F2" />
+      <Label
+        text="Photostream Settings"
+        translation="[160,120]"
+        font="font:LargeBoldSystemFont"
+        color="0xFFFFFFFF" />
+
+      <Rectangle id="hl" width="1320" height="72" color="0x1F6FEBFF" translation="[150,294]" />
+      <Label id="row0" translation="[180,302]" width="1280" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+      <Label id="row1" translation="[180,382]" width="1280" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+      <Label id="row2" translation="[180,462]" width="1280" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+      <Label id="row3" translation="[180,542]" width="1280" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+      <Label id="row4" translation="[180,622]" width="1280" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+
+      <Label
+        id="srhint"
+        translation="[160,760]"
+        width="1600"
+        font="font:SmallSystemFont"
+        color="0x9AA0A6FF" />
+    </Group>
+  </children>
+</component>

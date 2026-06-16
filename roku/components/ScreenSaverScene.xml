@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Minimal scene for the REAL screensaver (RunScreenSaver): just the photo
+     feed, nothing interactive. Kept deliberately simple — the richer
+     PreviewScene does not render in the restricted screensaver context. -->
+<component name="ScreenSaverScene" extends="Scene">
+  <script type="text/brightscript" uri="pkg:/components/ScreenSaverScene.brs" />
+  <!-- Shared config/registry helpers must be included explicitly. -->
+  <script type="text/brightscript" uri="pkg:/source/config.brs" />
+  <children>
+    <PhotoView id="view" />
+  </children>
+</component>

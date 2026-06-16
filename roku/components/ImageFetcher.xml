@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Long-lived fetch worker. ONE Task thread and reused roUrlTransfer objects,
+     so a multi-hour run doesn't churn through thousands of tasks/sockets (which
+     eventually exhausts the Task thread pool and wedges all networking).
+     The owner sets sourceUrl/idUrl/lastId and bumps `trigger` to request a fetch;
+     the worker posts the outcome to `result`. -->
+<component name="ImageFetcher" extends="Task">
+  <interface>
+    <field id="sourceUrl" type="string" />
+    <field id="idUrl" type="string" />
+    <field id="lastId" type="string" />
+    <field id="trigger" type="integer" value="0" alwaysNotify="true" />
+    <field id="result" type="assocarray" alwaysNotify="true" />
+  </interface>
+  <script type="text/brightscript" uri="pkg:/components/ImageFetcher.brs" />
+</component>
